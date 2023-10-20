@@ -4,11 +4,15 @@ package com.cos.blog.test;
 import java.util.List;
 import java.util.function.Supplier;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -26,17 +30,35 @@ public class DummyControllerTest {
 	// 의존성 주입(DI) 
 	@Autowired 
 	private UserRepository userRepository; 
+
+	@DeleteMapping("/dummy/user/{id}")
+	public String delete(@PathVariable int id) {
+		try {
+			userRepository.deleteById(id);
+		} catch (EmptyResultDataAccessException e) {
+			return "삭제에 실패했습니다. 해당 id는 DB에 없습니다.";
+		}
+		
+		return "삭제 되었습니다. id : " + id;
+	}
+	
 	
 	// email, password
+	@Transactional // 함수 종료 시 자동 Commit
 	@PutMapping("/dummy/user/{id}")
 	public User updateUser(@PathVariable int id, @RequestBody User requestUser) { // json 데이터를 요청 -> Java Object(MessageConverter의 Jackson 라이브러리가)로 변환해서 받아준다.
 		System.out.println("id: " + id);
 		System.out.println("password : " + requestUser.getPassword());
 		System.out.println("email : " + requestUser.getEmail());
 		
-		requestUser.setId(id);
-		userRepository.save(requestUser);
-		return null;
+		User user = userRepository.findById(id).orElseThrow(()->{
+			return new IllegalArgumentException("수정에 실패했습니다.");
+		});
+		user.setPassword(requestUser.getPassword());
+		user.setEmail(requestUser.getEmail());
+
+		//userRepository.save(user);
+		return user;
 	}
 	
 	// http://localhost:8000/blog/dummy/users

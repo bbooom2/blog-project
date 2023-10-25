@@ -1,4 +1,4 @@
-package com.cos.blog.test;
+package com.cos.blog;
 
 import org.junit.Test;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;

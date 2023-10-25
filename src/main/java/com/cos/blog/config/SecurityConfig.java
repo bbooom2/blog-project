@@ -27,7 +27,7 @@ import org.springframework.security.web.SecurityFilterChain;
 	    .and()
 	       .formLogin()
 	       .loginPage("/auth/loginForm")
-	  	   .loginProcessingUrl("auth/loginProc") // 스프링 시큐리티가 해당 주소로 요청 오는 로그인을 가로채서 대신 로그인 해준다.
+	  	   .loginProcessingUrl("/auth/loginProc") // 스프링 시큐리티가 해당 주소로 요청 오는 로그인을 가로채서 대신 로그인 해준다.
 	  	   .defaultSuccessUrl("/");
 	  return http.build();
 	 }

@@ -40,7 +40,6 @@ public class Board {
 	@Lob // 대용량 데이터 
 	private String content; // 섬머노트 라이브러리 사용 예정. <html> 태그가 섞여서 디자인이 됨. 
 	
-	@ColumnDefault("0") // 숫자이기 때문에 추가로 홑따옴표가 필요하지 않다. 
 	private int count; // 조회수 
 	
 	@ManyToOne(fetch = FetchType.EAGER) // Many = Board, User = One 한명의 사용자는 여러 게시글을 올릴 수 있음. 

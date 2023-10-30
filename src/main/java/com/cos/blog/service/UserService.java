@@ -15,7 +15,7 @@ import com.cos.blog.repository.UserRepository;
 public class UserService {
 	@Autowired
 	private UserRepository userRepository;
-	
+		
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	

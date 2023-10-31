@@ -19,7 +19,7 @@ public class UserService {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
-	@Transactional
+	@Transactional(readOnly = true)
 	public User 회원찾기(String username) {
 		User user =userRepository.findByUsername(username).orElseGet(()->{ // 만약에 회원을 찾았는데 없으면 빈 객체를 리턴한다. 
 			return new User();

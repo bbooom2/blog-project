@@ -12,6 +12,9 @@
 				<div class="form-group">
 					<label for="password">Password:</label> <input type="password" class="form-control" placeholder="Enter password" id="password">
 				</div>
+				<div class="form-group">
+					<label for="email">Email</label> <input type="email" value="${principal.user.email}" class="form-control" placeholder="Enter email" id="email" >
+				</div>
 			</c:when>
 			<c:otherwise>
 				<div class="form-group">

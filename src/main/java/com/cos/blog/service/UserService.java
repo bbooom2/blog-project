@@ -20,6 +20,14 @@ public class UserService {
 	private BCryptPasswordEncoder encoder;
 	
 	@Transactional
+	public User 회원찾기(String username) {
+		User user =userRepository.findByUsername(username).orElseGet(()->{ // 만약에 회원을 찾았는데 없으면 빈 객체를 리턴한다. 
+			return new User();
+		});
+		return user;
+	}
+	
+	@Transactional
 	public void 회원가입(User user) {
 		String rawPassword  = user.getPassword(); // 1234 원문
 		String endPassword = encoder.encode(rawPassword); // 해쉬
@@ -37,6 +45,5 @@ public class UserService {
 		String encPassword = encoder.encode(rawPassword);
 		persistance.setPassword(encPassword);
 		persistance.setEmail(user.getEmail());
-
 	}
 }

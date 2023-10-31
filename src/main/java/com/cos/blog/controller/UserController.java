@@ -116,7 +116,7 @@ public class UserController {
 				String.class
 		);
 		
-		
+		// User 오브젝트 : username, password, email
 		ObjectMapper objectMapper2 = new ObjectMapper();
 		KakaoProfile kakaoProfile  = null;
 		
@@ -128,21 +128,11 @@ public class UserController {
 			e.printStackTrace();
 		}
 		
-		
-		System.out.println("카카오 아이디(번호) : "  + kakaoProfile.getId());
-	    System.out.println("카카오 이메일 : "  + kakaoProfile.getKakao_account().getEmail());
-	    
-	    System.out.println("블로그 서버 유저네임 : "  + kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
-	    System.out.println("블로그 서버 이메일 : "  + kakaoProfile.getKakao_account().getEmail());
-	    
-	    // UUID란 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘 -> 이걸 쓰면 로그인 할 때마다 바뀌어있는 패스워드를 확인할 수 없기 때문에 로그인 불가능 
-	    System.out.println("블로그 서버 패스워드 : "  + cosKey);
-	    
-	 // User 오브젝트 : username, password, email
 	    User kakaoUser = User.builder()
 	    		.username(kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId())
-	    		.password("cos1234")
+	    		.password(cosKey)
 	    		.email(kakaoProfile.getKakao_account().getEmail())
+	    		.oauth("kakao")
 	    		.build();
 	    
 	    
@@ -160,6 +150,20 @@ public class UserController {
 		SecurityContextHolder.getContext().setAuthentication(authentication);
 	    
 		return "redirect:/";
+		
+		/*
+		 * System.out.println("카카오 아이디(번호) : " + kakaoProfile.getId());
+		 * System.out.println("카카오 이메일 : " +
+		 * kakaoProfile.getKakao_account().getEmail());
+		 * 
+		 * System.out.println("블로그 서버 유저네임 : " +
+		 * kakaoProfile.getKakao_account().getEmail()+"_"+kakaoProfile.getId());
+		 * System.out.println("블로그 서버 이메일 : " +
+		 * kakaoProfile.getKakao_account().getEmail());
+		 * 
+		 * // UUID란 중복되지 않는 어떤 특정 값을 만들어내는 알고리즘 -> 이걸 쓰면 로그인 할 때마다 바뀌어있는 패스워드를 확인할 수 없기
+		 * 때문에 로그인 불가능 System.out.println("블로그 서버 패스워드 : " + cosKey);
+		 */
 	}
 	
 	@GetMapping("/user/updateForm")

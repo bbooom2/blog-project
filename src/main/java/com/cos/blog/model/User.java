@@ -44,6 +44,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role; // Enum을 쓰는 게 좋음. (어느 데이터의 도메인을 만들어줄 수 있음)  // ADMIN, USER
 	
+	private String oauth;
+	
 	@CreationTimestamp // 시간이 자동 입력 
 	private Timestamp createDate;
 }

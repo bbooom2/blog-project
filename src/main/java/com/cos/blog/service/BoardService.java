@@ -9,23 +9,24 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cos.blog.dto.ReplySaveRequestDto;
 import com.cos.blog.model.Board;
-import com.cos.blog.model.Reply;
 import com.cos.blog.model.User;
 import com.cos.blog.repository.BoardRepository;
 import com.cos.blog.repository.ReplyRepository;
-import com.cos.blog.repository.UserRepository;
+
+import lombok.RequiredArgsConstructor;
 
 @Service
+@RequiredArgsConstructor
 public class BoardService {
-	@Autowired
-	private BoardRepository boardRepository;
 	
-	@Autowired
-	private ReplyRepository replyRepository;
+	private final BoardRepository boardRepository;
+	private final ReplyRepository replyRepository;
 	
-	@Autowired
-	private UserRepository userRepository;
-	
+	/*
+	 * public BoardService(BoardRepository bRepo, ReplyRepository rRepo ) {
+	 * this.boardRepository = bRepo; this.replyRepository = rRepo; }
+	 */
+		
 	@Transactional
 	public void 글쓰기(Board board, User user) { // title, content
 		board.setCount(0); 

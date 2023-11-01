@@ -16,6 +16,8 @@ import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -47,6 +49,7 @@ public class Board {
 	
 	// mappedBy = 연관관계의 주인이 아니므로 (FK 아님) DB에 칼럼을 만들지 말라는 의미. 
 	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) 
+	@JsonIgnoreProperties({"board"})
 	private List<Reply> replys; 
 	
 	@CreationTimestamp

@@ -29,7 +29,7 @@
 
 [프로젝트 블로그 정리]
 
-Springboot 나만의 블로그 만들기 (4강~10강)
+Springboot 나만의 블로그 만들기 (1강~10강)
 
 https://c-reamc-ream.tistory.com/112
 
